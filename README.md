@@ -11,7 +11,8 @@
 
 <div align="center">
   <h3>🚀 A modern, full-stack health management application</h3>
-  <p>Built with FastAPI, Next.js, and TypeScript for seamless patient care management</p>
+  <p>Built with FastAPI, Next.js, and TypeScript with <strong>Cerbo Sandbox API</strong> integration</p>
+  <p>🔗 <em>Integrated with Cerbo Healthcare Platform for real-world EHR functionality</em></p>
 </div>
 
 ---
@@ -55,11 +56,42 @@
   </tr>
 </table>
 
+### 🔗 Cerbo Sandbox Integration
+
+This application integrates with the **Cerbo Healthcare Platform** through their sandbox API, providing:
+
+- **Real-time EHR Data Sync** - Bidirectional synchronization with Cerbo's healthcare platform
+- **Patient Data Management** - Seamless patient record creation and updates
+- **Appointment Coordination** - Integration with Cerbo's scheduling system
+- **Clinical Workflow** - Support for real-world healthcare workflows
+- **API Authentication** - Secure connection to Cerbo's sandbox environment
+
+> 💡 **Note**: This system uses Cerbo's sandbox environment for development and testing purposes, enabling realistic healthcare data workflows without affecting production systems.
+
 ## 🏗️ Architecture
 
-<div align="center">
-  <img src="https://via.placeholder.com/800x400/1a1a1a/ffffff?text=Architecture+Diagram" alt="Architecture Diagram">
-</div>
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │   Backend       │    │   Cerbo API     │
+│   (Next.js)     │◄──►│   (FastAPI)     │◄──►│   (Sandbox)     │
+│                 │    │                 │    │                 │
+│ • React 18      │    │ • Python 3.8+   │    │ • Patient Data  │
+│ • TypeScript    │    │ • SQLAlchemy    │    │ • Appointments  │
+│ • Tailwind CSS  │    │ • Alembic       │    │ • Clinical Data │
+│ • Custom UI     │    │ • SQLite/PostgreSQL│ │ • Provider Info │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │
+         │                       │
+         ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐
+│   User Interface│    │   Database      │
+│                 │    │                 │
+│ • Dashboard     │    │ • Patients      │
+│ • Patient Mgmt  │    │ • Appointments  │
+│ • Scheduling    │    │ • Clinical Recs │
+│ • Billing       │    │ • Providers     │
+└─────────────────┘    └─────────────────┘
+```
 
 ### Backend (FastAPI)
 - **🐍 Python 3.8+** - Modern async/await support
@@ -96,6 +128,10 @@ source venv/bin/activate
 # Install dependencies
 pip install -r requirements.txt
 
+# Configure Cerbo Sandbox (optional)
+cp .env.example .env
+# Edit .env with your Cerbo sandbox credentials
+
 # Initialize database
 alembic upgrade head
 
@@ -122,9 +158,7 @@ npm run dev
 
 ## 📊 API Documentation
 
-<div align="center">
-  <img src="https://via.placeholder.com/600x300/f8f9fa/212529?text=Interactive+API+Documentation" alt="API Documentation">
-</div>
+The API provides comprehensive endpoints for healthcare data management with automatic interactive documentation available at `/docs` when running the backend server.
 
 ### Key Endpoints
 
@@ -137,21 +171,37 @@ npm run dev
 | `GET` | `/api/v1/clinical-records` | Retrieve clinical records |
 | `POST` | `/api/v1/clinical-records` | Add clinical record |
 
-## 🎨 Screenshots
+## 🎨 Application Features
 
-<details>
-<summary>📱 Click to view application screenshots</summary>
+### 📱 **Dashboard Overview**
+- Real-time patient statistics and metrics
+- Quick access to recent appointments and clinical records
+- Provider availability and scheduling overview
+- Integrated billing and insurance status
 
-### Dashboard Overview
-<img src="https://via.placeholder.com/800x500/e3f2fd/1976d2?text=Dashboard+Overview" alt="Dashboard">
+### 👥 **Patient Management**
+- Comprehensive patient profiles with demographics
+- Medical history and clinical record tracking
+- Insurance information and coverage verification
+- Emergency contact and family history management
 
-### Patient Management
-<img src="https://via.placeholder.com/800x500/f3e5f5/7b1fa2?text=Patient+Management" alt="Patient Management">
+### 📅 **Appointment Scheduling**
+- Intuitive calendar interface with conflict detection
+- Provider availability and specialty filtering
+- Automated reminders and notifications
+- Recurring appointment support
 
-### Appointment Scheduling
-<img src="https://via.placeholder.com/800x500/e8f5e8/388e3c?text=Appointment+Scheduling" alt="Appointment Scheduling">
+### 🏥 **Clinical Records**
+- Detailed medical history documentation
+- Vital signs tracking and trending
+- Treatment plans and medication management
+- Lab results and diagnostic imaging integration
 
-</details>
+### 💰 **Billing & Insurance**
+- Automated billing generation and tracking
+- Insurance eligibility verification
+- Payment processing and claims management
+- Financial reporting and analytics
 
 ## 🛠️ Development
 
@@ -219,11 +269,19 @@ npm run lint
 
 #### Backend (.env)
 ```bash
+# Database Configuration
 DATABASE_URL=sqlite:///./ehr_dashboard.db
 DEBUG=True
 LOG_LEVEL=INFO
 ALLOWED_ORIGINS=["http://localhost:3000"]
+
+# Cerbo Sandbox API (Optional)
+CERBO_BASE_URL=https://sandbox.md-hq.com/api/v1
+CERBO_USERNAME=your_sandbox_username
+CERBO_SECRET_KEY=your_sandbox_secret_key
 ```
+
+> 🔐 **Cerbo Sandbox Setup**: To enable Cerbo integration, sign up for a Cerbo sandbox account and add your credentials to the `.env` file. The application works without Cerbo integration for local development.
 
 #### Frontend (.env.local)
 ```bash
@@ -263,6 +321,30 @@ NEXT_PUBLIC_APP_NAME="Health Management System"
   </table>
 </div>
 
+## 🏥 Cerbo Healthcare Platform Integration
+
+This application leverages the **Cerbo Sandbox API** to provide realistic healthcare data management capabilities:
+
+### 🔗 **Integration Features**
+- **Patient Synchronization** - Sync patient data between local database and Cerbo platform
+- **Appointment Management** - Create and manage appointments through Cerbo's scheduling system
+- **Clinical Data Exchange** - Exchange clinical records and medical information
+- **Provider Network** - Access to Cerbo's provider directory and profiles
+- **Insurance Verification** - Real-time insurance eligibility checking through Cerbo
+
+### 🛠️ **API Capabilities**
+```python
+# Example Cerbo integration usage
+await cerbo_client.create_patient(patient_data)
+await cerbo_client.schedule_appointment(appointment_data)
+await cerbo_client.sync_clinical_records(patient_id)
+```
+
+### 📚 **Cerbo Resources**
+- **Sandbox Environment**: [https://sandbox.md-hq.com/](https://sandbox.md-hq.com/)
+- **API Documentation**: [https://docs.cer.bo/](https://docs.cer.bo/)
+- **Developer Portal**: Access through Cerbo's developer program
+
 ## 🔒 Security Features
 
 - 🛡️ **Input Validation** - Comprehensive data validation with Pydantic
@@ -270,6 +352,7 @@ NEXT_PUBLIC_APP_NAME="Health Management System"
 - 🚫 **SQL Injection Prevention** - ORM-based database queries
 - 🔒 **Environment Variables** - Secure configuration management
 - 📝 **Request Logging** - Comprehensive audit trail
+- 🔐 **Cerbo API Security** - Secure authentication with Cerbo's healthcare platform
 
 ## 🧪 Testing
 
