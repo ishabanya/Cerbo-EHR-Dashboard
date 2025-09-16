@@ -70,9 +70,28 @@ This application integrates with the **Cerbo Healthcare Platform** through their
 
 ## 🏗️ Architecture
 
-<div align="center">
-  <img src="https://via.placeholder.com/800x400/1a1a1a/ffffff?text=Architecture+Diagram" alt="Architecture Diagram">
-</div>
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │   Backend       │    │   Cerbo API     │
+│   (Next.js)     │◄──►│   (FastAPI)     │◄──►│   (Sandbox)     │
+│                 │    │                 │    │                 │
+│ • React 18      │    │ • Python 3.8+   │    │ • Patient Data  │
+│ • TypeScript    │    │ • SQLAlchemy    │    │ • Appointments  │
+│ • Tailwind CSS  │    │ • Alembic       │    │ • Clinical Data │
+│ • Custom UI     │    │ • SQLite/PostgreSQL│ │ • Provider Info │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │
+         │                       │
+         ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐
+│   User Interface│    │   Database      │
+│                 │    │                 │
+│ • Dashboard     │    │ • Patients      │
+│ • Patient Mgmt  │    │ • Appointments  │
+│ • Scheduling    │    │ • Clinical Recs │
+│ • Billing       │    │ • Providers     │
+└─────────────────┘    └─────────────────┘
+```
 
 ### Backend (FastAPI)
 - **🐍 Python 3.8+** - Modern async/await support
@@ -139,9 +158,7 @@ npm run dev
 
 ## 📊 API Documentation
 
-<div align="center">
-  <img src="https://via.placeholder.com/600x300/f8f9fa/212529?text=Interactive+API+Documentation" alt="API Documentation">
-</div>
+The API provides comprehensive endpoints for healthcare data management with automatic interactive documentation available at `/docs` when running the backend server.
 
 ### Key Endpoints
 
@@ -154,21 +171,37 @@ npm run dev
 | `GET` | `/api/v1/clinical-records` | Retrieve clinical records |
 | `POST` | `/api/v1/clinical-records` | Add clinical record |
 
-## 🎨 Screenshots
+## 🎨 Application Features
 
-<details>
-<summary>📱 Click to view application screenshots</summary>
+### 📱 **Dashboard Overview**
+- Real-time patient statistics and metrics
+- Quick access to recent appointments and clinical records
+- Provider availability and scheduling overview
+- Integrated billing and insurance status
 
-### Dashboard Overview
-<img src="https://via.placeholder.com/800x500/e3f2fd/1976d2?text=Dashboard+Overview" alt="Dashboard">
+### 👥 **Patient Management**
+- Comprehensive patient profiles with demographics
+- Medical history and clinical record tracking
+- Insurance information and coverage verification
+- Emergency contact and family history management
 
-### Patient Management
-<img src="https://via.placeholder.com/800x500/f3e5f5/7b1fa2?text=Patient+Management" alt="Patient Management">
+### 📅 **Appointment Scheduling**
+- Intuitive calendar interface with conflict detection
+- Provider availability and specialty filtering
+- Automated reminders and notifications
+- Recurring appointment support
 
-### Appointment Scheduling
-<img src="https://via.placeholder.com/800x500/e8f5e8/388e3c?text=Appointment+Scheduling" alt="Appointment Scheduling">
+### 🏥 **Clinical Records**
+- Detailed medical history documentation
+- Vital signs tracking and trending
+- Treatment plans and medication management
+- Lab results and diagnostic imaging integration
 
-</details>
+### 💰 **Billing & Insurance**
+- Automated billing generation and tracking
+- Insurance eligibility verification
+- Payment processing and claims management
+- Financial reporting and analytics
 
 ## 🛠️ Development
 
